@@ -9,8 +9,8 @@ namespace BookApp.Repository
 {
     public class Repository<T> : IRepository<T> where T : class , IHasIdentity
     {
-        private readonly BookDataBase BookDB;
-        public Repository(BookDataBase BookDB)
+        private readonly LibraryDB BookDB;
+        public Repository(LibraryDB BookDB)
         {
             this.BookDB = BookDB;
         }

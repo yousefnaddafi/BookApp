@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace BookApp.BookDB
 {
-    public class BookDataBase : DbContext
+    public class LibraryDB : DbContext
     {
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Category> Categories { get; set; }
         
-        public BookDataBase(DbContextOptions<BookDataBase> options) : base(options)
+        public LibraryDB(DbContextOptions<LibraryDB> options) : base(options)
         {
 
         }
-        public BookDataBase()
+        public LibraryDB()
         {
 
         }
