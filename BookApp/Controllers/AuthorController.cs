@@ -23,6 +23,7 @@ namespace BookApp.Controllers
         public Author Insert([FromBody ]Author Author)
         {
             repository.Insert(Author);
+            
             repository.Save();
             return Author;
         }

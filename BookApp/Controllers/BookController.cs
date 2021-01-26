@@ -13,18 +13,24 @@ namespace BookApp.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        private readonly IBookRepository<Book> repository;
+        private readonly IBookRepository<Book> Bookrepository;
         public BookController(IBookRepository<Book> repository)
         {
-            this.repository = repository;
+            this.Bookrepository = repository;
         }
 
         [HttpPost]
         public Book Insert([FromBody] Book book)
         {
-            repository.Insert(book);
-            repository.Save();
+            Bookrepository.Insert(book);
+            Bookrepository.Save();
             return book;
+        }
+        [HttpGet]
+        public Book Get([FromQuery]int id)
+        {
+            var M = Bookrepository.Get(id);
+            return M;
         }
     }
 }

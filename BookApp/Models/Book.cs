@@ -13,7 +13,7 @@ namespace BookApp.Models
         public string Publisher { get; set; }
         public DateTime PublishDate { get; set; }
         public string ISBN { get; set; }
-        public List<Author> Authors { get; set; }
-        public List<Category> Categories { get; set; }
+        public List<string> Authors { get; set; }
+        public List<string> Categories { get; set; }
     }
 }
