@@ -9,11 +9,16 @@ namespace BookApp.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Publication { get; set; }
-        public string Publisher { get; set; }
+     
         public DateTime PublishDate { get; set; }
         public string ISBN { get; set; }
-        public List<string> Authors { get; set; }
-        public List<string> Categories { get; set; }
+       
+
+        public Publisher Publisher { get; set; }
+        public int PublisherId { get; set; }
+
+        public List<BookCategory> bookCategories { get; set; }
+
+        public List<BookAuthor> BookAuthors { get; set; }
     }
 }
