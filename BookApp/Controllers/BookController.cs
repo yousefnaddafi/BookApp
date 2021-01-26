@@ -47,5 +47,9 @@ namespace BookApp.Controllers
             var M = repository.Get(id);
             return M;
         }
+
+        [HttpPost("Search")]
+        public Book Search([FromBody] )
+
     }
 }
