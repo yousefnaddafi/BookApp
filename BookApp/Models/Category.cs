@@ -9,7 +9,7 @@ namespace BookApp.Models
     {
         public int Id { get ; set; }
         public string Name { get; set; }
-        public List<BookCategory> bookCategories { get; set; }
+        public List<BookCategory> BookCategories { get; set; }
 
     }
 }

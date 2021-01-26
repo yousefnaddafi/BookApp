@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BookApp.Models
 {
-    public class BookAuthor
+    public class BookAuthor : IHasIdentity
     {
         public int Id { get; set; }
         public int BookId { get; set; }

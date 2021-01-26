@@ -13,9 +13,9 @@ namespace BookApp.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        private readonly IBookRepository<Book> Bookrepository;
+        private readonly IRepository<Book> Bookrepository;
         
-        public BookController(IBookRepository<Book> repository)
+        public BookController(IRepository<Book> repository)
         {
             this.Bookrepository = repository;
         }

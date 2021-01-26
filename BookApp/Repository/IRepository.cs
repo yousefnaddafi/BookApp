@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BookApp.Repository
 {
-    public interface IBookRepository<T>
+    public interface IRepository<T>
     {
         T Get(int id);
         void Insert(T item);

@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace BookApp.Repository
 {
-    public class BookRepository<T> : IBookRepository<T> where T : class , IHasIdentity
+    public class Repository<T> : IRepository<T> where T : class , IHasIdentity
     {
         private readonly BookDataBase BookDB;
-        public BookRepository(BookDataBase BookDB)
+        public Repository(BookDataBase BookDB)
         {
             this.BookDB = BookDB;
         }
