@@ -1,4 +1,5 @@
-﻿using BookApp.Models;
+﻿using BookApp.BookDB;
+using BookApp.Models;
 using BookApp.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,20 +12,19 @@ namespace BookApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookController : ControllerBase
+    public class AuthorController : ControllerBase
     {
-        private readonly IBookRepository<Book> repository;
-        public BookController(IBookRepository<Book> repository)
+        private readonly IBookRepository<Author> repository;
+        public AuthorController(IBookRepository<Author> repository)
         {
             this.repository = repository;
         }
-
         [HttpPost]
-        public Book Insert([FromBody] Book book)
+        public Author Insert([FromBody ]Author Author)
         {
-            repository.Insert(book);
+            repository.Insert(Author);
             repository.Save();
-            return book;
+            return Author;
         }
     }
 }
