@@ -11,21 +11,20 @@ namespace BookApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookController : ControllerBase
+    public class CategoryController : ControllerBase
     {
-        private readonly IRepository<Book> repository;
-        
-        public BookController(IRepository<Book> repository)
+        private readonly IRepository<Category> repository;
+        public CategoryController(IRepository<Category> repository)
         {
             this.repository = repository;
         }
-
         [HttpPost]
-        public Book Insert([FromBody] Book book)
+        public Category Insert([FromBody] Category Category)
         {
-            repository.Insert(book);
+            repository.Insert(Category);
+
             repository.Save();
-            return book;
+            return Category;
         }
         [HttpDelete]
         public int Delete([FromQuery] int id)
@@ -35,17 +34,16 @@ namespace BookApp.Controllers
             return id;
         }
         [HttpPut]
-        public Book Update([FromBody] Book Book)
+        public Category Update([FromBody] Category Category)
         {
-            repository.Update(Book);
+            repository.Update(Category);
             repository.Save();
-            return Book;
+            return Category;
         }
         [HttpGet]
-        public Book Get([FromQuery]int id)
+        public Category Get([FromQuery] int id)
         {
-            var M = repository.Get(id);
-            return M;
+            return repository.Get(id);
         }
     }
 }

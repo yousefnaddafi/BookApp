@@ -5,27 +5,27 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using System.Threading.Tasks;
 
 namespace BookApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookController : ControllerBase
+    public class PublisherController : ControllerBase
     {
-        private readonly IRepository<Book> repository;
-        
-        public BookController(IRepository<Book> repository)
+        private readonly IRepository<Publisher> repository;
+        public PublisherController(IRepository<Publisher> repository)
         {
             this.repository = repository;
         }
-
         [HttpPost]
-        public Book Insert([FromBody] Book book)
+        public Publisher Insert([FromBody] Publisher publisher)
         {
-            repository.Insert(book);
+            repository.Insert(publisher);
+
             repository.Save();
-            return book;
+            return publisher;
         }
         [HttpDelete]
         public int Delete([FromQuery] int id)
@@ -35,17 +35,16 @@ namespace BookApp.Controllers
             return id;
         }
         [HttpPut]
-        public Book Update([FromBody] Book Book)
+        public Publisher Update([FromBody] Publisher publisher)
         {
-            repository.Update(Book);
+            repository.Update(publisher);
             repository.Save();
-            return Book;
+            return publisher;
         }
         [HttpGet]
-        public Book Get([FromQuery]int id)
+        public Publisher Get([FromQuery] int id)
         {
-            var M = repository.Get(id);
-            return M;
+            return repository.Get(id);
         }
     }
 }

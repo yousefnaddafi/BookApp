@@ -33,6 +33,10 @@ namespace BookApp
             { o.UseSqlServer(Configuration.GetConnectionString("BookDBConections")); });
             
             services.AddTransient<IRepository<Book>, Repository<Book>>();
+            services.AddTransient<IRepository<Category>, Repository<Category>>();
+            services.AddTransient<IRepository<Publisher>, Repository<Publisher>>();
+            services.AddTransient<IRepository<BookAuthor>, Repository<BookAuthor>>();
+            services.AddTransient<IRepository<BookCategory>, Repository<BookCategory>>();
             services.AddTransient<IRepository<Author>, Repository<Author>>();
             services.AddControllers();
         }

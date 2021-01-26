@@ -27,5 +27,26 @@ namespace BookApp.Controllers
             repository.Save();
             return Author;
         }
+        [HttpDelete]
+        public int Delete([FromQuery] int id)
+        {
+            repository.Delete(id);
+            repository.Save();
+            return id;
+        }
+        [HttpPut]
+        public Author Update([FromBody] Author author)
+        {
+            repository.Update(author);
+            repository.Save();
+            return author;
+        }
+        [HttpGet]
+        public Author Get([FromQuery] int id)
+        {
+            return repository.Get(id); 
+        }
+
+
     }
 }
