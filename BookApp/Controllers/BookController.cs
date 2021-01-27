@@ -14,7 +14,11 @@ namespace BookApp.Controllers
     public class BookController : ControllerBase
     {
         private readonly IRepository<Book> repository;
-        
+        private readonly IRepository<Author> AuthorRepository;
+        private readonly IRepository<BookAuthor> BookAuthorRepository;
+        private readonly IRepository<BookCategory> BookCategoryRepository;
+        private readonly IRepository<Category> CategoryRepository;
+
         public BookController(IRepository<Book> repository)
         {
             this.repository = repository;
@@ -47,9 +51,105 @@ namespace BookApp.Controllers
             var M = repository.Get(id);
             return M;
         }
-
+        [HttpGet]
+        public List<Book> GetAll()
+        {
+            return repository.GetAll();
+        }
+        
         [HttpPost("Search")]
-        public Book Search([FromBody] )
+        public List<Book> Search([FromBody] Search search)
+        {
+            var BookIds = new List<int>();
+            var Books = repository.GetAll();
+            var Authors = AuthorRepository.GetAll();
+            var Categories = CategoryRepository.GetAll();
+            var BookCategories = BookCategoryRepository.GetAll();
+            var BookAuthors = BookAuthorRepository.GetAll();
+            var MatchAuthorId = new List<int>();
+            // get book ids from the author list search
+            foreach(var item in search.authors)
+            {
+                foreach(var Author in Authors)
+                {
+                    if(Author.FullName == item)
+                    {
+                        if(!MatchAuthorId.Contains(Author.Id))
+                        {
+                            MatchAuthorId.Add(Author.Id);
+                        }
+                        
+                    }
+                }
+            }
+
+            
+            foreach(var item in MatchAuthorId)
+            {
+                foreach(var element in BookAuthors)
+                {
+                    if(item == element.AuthorId)
+                    {
+                        if(! BookIds.Contains(element.BookId))
+                        {
+                            BookIds.Add(element.BookId);
+                        }
+                    }
+                }
+            }
+            // get book ids from category list search
+            var MatchCategoryId = new List<int>();
+            foreach (var item in search.categories)
+            {
+                foreach (var Category in Categories)
+                {
+                    if (Category.Name == item)
+                    {
+                        if (!MatchCategoryId.Contains(Category.Id))
+                        {
+                            MatchCategoryId.Add(Category.Id);
+                        }
+
+                    }
+                }
+            }
+
+            foreach (var item in MatchCategoryId)
+            {
+                foreach (var element in BookCategories)
+                {
+                    if (item == element.CategoryId)
+                    {
+                        if (!BookIds.Contains(element.BookId))
+                        {
+                            BookIds.Add(element.BookId);
+                        }
+                    }
+                }
+            }
+
+            //get book ids from publisher
+            var publication = Books.FirstOrDefault(x => x.Publisher.Name == search.publication).Id;
+            BookIds.Add(publication);
+
+            // turn book ids to list of books
+            var BookList = new List<Book>();
+            foreach(var item in BookIds)
+            {
+                foreach(var element in Books)
+                {
+                    if(item == element.Id)
+                    {
+                        if (!BookList.Contains(element))
+                        {
+                            BookList.Add(element);
+                        }
+                    }
+                }
+            }
+
+            return BookList;
+        }
 
     }
 }

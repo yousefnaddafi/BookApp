@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,5 +13,6 @@ namespace BookApp.Repository
         T Update(T item);
         void Delete(int id);
         void Save();
+        List<T> GetAll();
     }
 }

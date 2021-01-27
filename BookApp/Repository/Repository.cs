@@ -40,5 +40,11 @@ namespace BookApp.Repository
         {
             this.BookDB.SaveChanges();
         }
+        public List<T> GetAll()
+        {
+            return this.BookDB.Set<T>().ToList();
+        }
+
+        
     }
 }
