@@ -19,9 +19,14 @@ namespace BookApp.Controllers
         private readonly IRepository<BookCategory> BookCategoryRepository;
         private readonly IRepository<Category> CategoryRepository;
 
-        public BookController(IRepository<Book> repository)
+        public BookController(IRepository<Book> repository,IRepository<Author> AuthorRepository,IRepository<BookAuthor> BookAuthorRepository,
+            IRepository<BookCategory> BookCategoryRepository,IRepository<Category> CategoryRepository)
         {
             this.repository = repository;
+            this.AuthorRepository = AuthorRepository;
+            this.BookAuthorRepository = BookAuthorRepository;
+            this.BookCategoryRepository = BookCategoryRepository;
+            this.CategoryRepository = CategoryRepository;
         }
 
         [HttpPost]
