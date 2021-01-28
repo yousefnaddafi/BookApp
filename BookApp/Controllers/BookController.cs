@@ -73,70 +73,82 @@ namespace BookApp.Controllers
             var BookAuthors = BookAuthorRepository.GetAll();
             var MatchAuthorId = new List<int>();
             // get book ids from the author list search
-            foreach(var item in search.authors)
+            if (search.authors != null)
             {
-                foreach(var Author in Authors)
+                foreach (var item in search.authors)
                 {
-                    if(Author.FullName == item)
+                    foreach (var Author in Authors)
                     {
-                        if(!MatchAuthorId.Contains(Author.Id))
+                        if (Author.FullName == item)
                         {
-                            MatchAuthorId.Add(Author.Id);
+                            if (!MatchAuthorId.Contains(Author.Id))
+                            {
+                                MatchAuthorId.Add(Author.Id);
+                            }
+
                         }
-                        
                     }
                 }
-            }
 
-            
-            foreach(var item in MatchAuthorId)
-            {
-                foreach(var element in BookAuthors)
+
+                foreach (var item in MatchAuthorId)
                 {
-                    if(item == element.AuthorId)
+                    foreach (var element in BookAuthors)
                     {
-                        if(! BookIds.Contains(element.BookId))
+                        if (item == element.AuthorId)
                         {
-                            BookIds.Add(element.BookId);
+                            if (!BookIds.Contains(element.BookId))
+                            {
+                                BookIds.Add(element.BookId);
+                            }
                         }
                     }
                 }
             }
             // get book ids from category list search
-            var MatchCategoryId = new List<int>();
-            foreach (var item in search.categories)
+            if (search.categories != null)
             {
-                foreach (var Category in Categories)
-                {
-                    if (Category.Name == item)
-                    {
-                        if (!MatchCategoryId.Contains(Category.Id))
-                        {
-                            MatchCategoryId.Add(Category.Id);
-                        }
 
-                    }
-                }
-            }
-
-            foreach (var item in MatchCategoryId)
-            {
-                foreach (var element in BookCategories)
+                var MatchCategoryId = new List<int>();
+                foreach (var item in search.categories)
                 {
-                    if (item == element.CategoryId)
+                    foreach (var Category in Categories)
                     {
-                        if (!BookIds.Contains(element.BookId))
+                        if (Category.Name == item)
                         {
-                            BookIds.Add(element.BookId);
+                            if (!MatchCategoryId.Contains(Category.Id))
+                            {
+                                MatchCategoryId.Add(Category.Id);
+                            }
+
                         }
                     }
                 }
-            }
 
+                foreach (var item in MatchCategoryId)
+                {
+                    foreach (var element in BookCategories)
+                    {
+                        if (item == element.CategoryId)
+                        {
+                            if (!BookIds.Contains(element.BookId))
+                            {
+                                BookIds.Add(element.BookId);
+                            }
+                        }
+                    }
+                }
+            }
             //get book ids from publisher
-            var publication = Books.FirstOrDefault(x => x.Publisher.Name == search.publication).Id;
-            BookIds.Add(publication);
+            
+            var publication = Books.FirstOrDefault(x => x.Publisher.Name == search.publication);
+            if (publication != null)
+            {
 
+                var pubId = publication.Id;
+                    
+                BookIds.Add(pubId);
+            }
             // turn book ids to list of books
             var BookList = new List<Book>();
             foreach(var item in BookIds)
